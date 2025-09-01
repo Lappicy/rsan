@@ -293,10 +293,13 @@ carrega_cobertura_rede <- function() {
 
 #' Carrega dados do censo IBGE 2022 agregado por municipio
 #'
+#' @param year ano que deseja carregar
+#'
 #' @return um `data.frame` com a estimativa populacional pelo Censo
 #' @export
-carrega_censo2022 <- function() {
-  path <- file.path(dir_base_calculo, "censo_2022.csv")
+carrega_censo <- function(year) {
+  fname <- paste0("censo_", year, ".csv")
+  path <- file.path(dir_base_calculo, fname)
   rlog::log_info(sprintf("Carregando dados do censo 2022 de %s", path))
   col_types <- "cccccccccccccccccccc"
   tabela <- readr::read_csv2(path, col_types = col_types)
@@ -333,10 +336,12 @@ carrega_censo2022 <- function() {
 
 #' Carrega dados censo IBGE 2022 agregado por setor
 #'
+#' @param year ano que deseja carregar
 #' @return um `data.frame` com a estimativa populacional pelo Censo por setor censitário
 #' @export
-carrega_censo2022_setor <- function() {
-  path <- file.path(dir_base_calculo, "censo_2022_setor.csv")
+carrega_censo_setor <- function(year) {
+  fname <- paste0("censo_", year, "_setor.csv")
+  path <- file.path(dir_base_calculo, fname)
   rlog::log_info(sprintf("Carregando dados do censo 2022 de %s", path))
   tabela <- readr::read_delim(
     path,
@@ -367,8 +372,8 @@ carrega_censo2022_setor <- function() {
 #' @param componente é um `character` com o componente desejado (agua, esgoto ou residuos)
 #'
 #' @export
-adiciona_atendimento_censo_2022 <- function(tabela, componente) {
-  df <- carrega_censo2022()
+adiciona_atendimento_censo <- function(tabela, componente, year = 2022) {
+  df <- carrega_censo(year)
   readr::write_csv2(df, "atendimento.csv")
   if (componente == "agua") {
     cols <- c("codigo_municipio", "atendimento_tot_agua_hab", "atendimento_urb_agua_hab", "atendimento_rur_agua_hab")

@@ -145,7 +145,7 @@ investimento_residuos <- function(state) {
     by = "codigo_municipio"
   )
   if (input$atendimento == "censo") {
-    tabela <- adiciona_atendimento_censo_2022(tabela, "residuos")
+    tabela <- adiciona_atendimento_censo(tabela, "residuos", input$atendimento_ano)
   }
   if (input$atendimento == "pnadc") {
     tabela <- adiciona_atendimento_pnadc(tabela, "residuos", input$atendimento_ano)

@@ -749,11 +749,11 @@ rodar_modulo_demografico <- function(input, projecao, tema) {
   tabela <- adiciona_populacao_corrente(projecao, ano_corrente, tabela)
   if (input$agua$atendimento == "censo") {
     rlog::log_info("Adicionando atendimento Água CENSO 2022")
-    tabela <- adiciona_atendimento_censo_2022(tabela, "agua")
+    tabela <- adiciona_atendimento_censo(tabela, "agua", input$agua$atendimento_ano)
   }
   if (input$esgoto$atendimento == "censo") {
     rlog::log_info("Adicionando atendimento Esgoto CENSO 2022")
-    tabela <- adiciona_atendimento_censo_2022(tabela, "esgoto")
+    tabela <- adiciona_atendimento_censo(tabela, "esgoto", input$esgoto$atendimento_ano)
   }
   if (input$agua$atendimento == "pnadc") {
     rlog::log_info("Adicionando atendimento Água PNADc")
@@ -912,7 +912,7 @@ capacidade_instalada_agua <- function(snis, custo) {
 rodar_modulo_financeiro_agua <- function(input, orcamentario) {
   snis_data <- carrega_base_calculo("agua", input$agua$fonte_nome, input$agua$fonte_ano)
   if (input$agua$atendimento == "censo") {
-    snis_data <- adiciona_atendimento_censo_2022(snis_data, "agua")
+    snis_data <- adiciona_atendimento_censo(snis_data, "agua", input$agua$atendimento_ano)
   }
   custo <- orcamentario$custo
   tabela <- capacidade_instalada_agua(snis_data, custo)

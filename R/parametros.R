@@ -138,7 +138,7 @@ get_default_input <- function() {
     fonte_nome = "sinisa",
     fonte_ano = 2023,
     atendimento = "censo",
-    antendimento_ano = 2022,
+    atendimento_ano = 2022,
 
     # coleta comum
     valor_caminhao = 484709.23 * taxa_veiculos,

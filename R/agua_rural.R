@@ -467,7 +467,7 @@ rodar_modulo_rural_agua <- function(state) {
   tabela <- base_municipios()
   tabela <- dplyr::left_join(
     tabela,
-    carrega_censo2022_setor(),
+    carrega_censo_setor(ano_censo),
     by = "codigo_municipio"
   )
   tabela <- filtra_setores_rurais(tabela)
