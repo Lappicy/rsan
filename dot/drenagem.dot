@@ -7,7 +7,6 @@ digraph G {
     snis_ap, area_urbana, precipitacao, capacidade_instalada,
     indices, projecao_populacional, necessidade [shape=parallelogram fillcolor=deepskyblue]
 
-    snis_ap -> adiciona_area_urbana
     area_urbana -> adiciona_area_urbana
     -> densidade_urbana
     -> adiciona_precipitacao
@@ -21,10 +20,11 @@ digraph G {
     -> condition
     condition -> investimento_constante[label="S"]
     condition -> aplica_regressao_multipla_drenagem[label="N"]
-    investimento_constante -> calcula_reposicao_parcial 
-    aplica_regressao_multipla_drenagem -> calcula_reposicao_parcial 
+    investimento_constante -> calcula_reposicao_parcial
+    aplica_regressao_multipla_drenagem -> calcula_reposicao_parcial
     calcula_reposicao_parcial -> investimento_cadastro_tecnico
     -> investimento_total_drenagem
     -> adiciona_pais
     -> necessidade
+    -> remove_nao_criticos
 }

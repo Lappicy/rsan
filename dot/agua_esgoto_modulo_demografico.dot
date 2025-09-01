@@ -4,9 +4,9 @@ digraph G {
 
     node [shape=box, style=filled, fillcolor=aquamarine3]
     #condition [shape=diamond fillcolor=antiquewhite1 label="É censo?"]
-    snis, demanda, projecao_populacional  [shape=parallelogram fillcolor=deepskyblue]
+    atendimento, demanda, projecao_populacional  [shape=parallelogram fillcolor=deepskyblue]
 
-    snis -> calcula_densidades 
+    atendimento -> necessidade_agua_esgoto
     -> preenche_densidades
     -> adiciona_projecao_populacao
     -> calcula_deficit

@@ -3,10 +3,9 @@ digraph G {
     margin=0
 
     node [shape=box, style=filled, fillcolor=aquamarine3]
-    snis, custos_expansao, custos_reposicao [shape=parallelogram fillcolor=deepskyblue]
+    estruturais, custos_expansao, custos_reposicao [shape=parallelogram fillcolor=deepskyblue]
 
-
-    snis -> capacidade_instalada_agua
+    estruturais -> capacidade_instalada_agua
     custos_expansao -> capacidade_instalada_agua
     -> calcula_reposicao_parcial
     -> custos_reposicao
