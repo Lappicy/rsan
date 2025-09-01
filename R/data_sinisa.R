@@ -1,13 +1,13 @@
 # Base Path for Raw SNISA Data
 base_path <- file.path("dados", "brutos", "sinisa")
 
-#' Download SINISA data
+#' Download SINISA raw data
 #'
 #' @param year Year of the data to download (e.g., 2022)
 #'
 #' @return Path to the downloaded files
 #' @export
-download_sinisa <- function(year) {
+download_sinisa_raw <- function(year) {
   path <- file.path(base_path, year)
   if (!dir.exists(path)) {
     dir.create(path, recursive = TRUE)
@@ -308,5 +308,14 @@ preprocess_sinisa_data <- function(year) {
     aguas_pluviais_preprocess(year),
     "drenagem", "sinisa", year
   )
+  return(NULL)
+}
+
+#' Download SINISA and preprocess data
+#' @param year Year of the data to process (e.g., 2022)
+#' @export
+download_and_preprocess_sinisa <- function(year) {
+  download_sinisa_raw(year)
+  preprocess_sinisa_data(year)
   return(NULL)
 }
