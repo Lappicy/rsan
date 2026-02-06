@@ -546,18 +546,18 @@ gera_necessidade_por_municipio <- function(state) {
   # calcular investimento total somando por linha
   agua <- dplyr::mutate(
     agua,
-    "AA Investimento Total" = `AA Investimento Total Urbana` + `AA Investimento Total Rural`,
-    "AA Investimento Expansão" = `AA Investimento Expansão Urbana` + `AA Investimento Expansão Rural`,
-    "AA Investimento Reposição" = `AA Investimento Reposição Urbana` + `AA Investimento Reposição Rural`
+    "AA Investimento Total" = dplyr::coalesce(`AA Investimento Total Urbana` , 0) + dplyr::coalesce(`AA Investimento Total Rural`, 0),
+    "AA Investimento Expansão" = dplyr::coalesce(`AA Investimento Expansão Urbana` , 0) + dplyr::coalesce(`AA Investimento Expansão Rural`, 0),
+    "AA Investimento Reposição" = dplyr::coalesce(`AA Investimento Reposição Urbana` , 0) + dplyr::coalesce(`AA Investimento Reposição Rural`, 0)
   )
 
   esgoto <- state$esgoto
   esgoto <- dplyr::select(esgoto, codigo_municipio, investimento_expansao, investimento_reposicao, investimento_total)
   esgoto <- dplyr::rename(
     esgoto,
-    "ES Investimento Expansão" = investimento_expansao,
-    "ES Investimento Reposição" = investimento_reposicao,
-    "ES Investimento Total" = investimento_total
+    "ES Investimento Expansão Urbana" = investimento_expansao,
+    "ES Investimento Reposição Urbana" = investimento_reposicao,
+    "ES Investimento Total Urbana" = investimento_total
   )
   esgoto <- dplyr::left_join(base_municipios(), esgoto, by = "codigo_municipio")
   esgoto_rural <- state$esgoto_rural
@@ -575,9 +575,9 @@ gera_necessidade_por_municipio <- function(state) {
   # calcular investimento total
   esgoto <- dplyr::mutate(
     esgoto,
-    "ES Investimento Total" = `ES Investimento Total` + `ES Investimento Total Rural`,
-    "ES Investimento Expansão" = `ES Investimento Expansão` + `ES Investimento Expansão Rural`,
-    "ES Investimento Reposição" = `ES Investimento Reposição` + `ES Investimento Reposição Rural`
+    "ES Investimento Total" = dplyr::coalesce(`ES Investimento Total  Urbana` , 0) + dplyr::coalesce(`ES Investimento Total Rural`, 0),
+    "ES Investimento Expansão" = dplyr::coalesce(`ES Investimento Expansão Urbana` , 0) + dplyr::coalesce(`ES Investimento Expansão Rural`, 0),
+    "ES Investimento Reposição" = dplyr::coalesce(`ES Investimento Reposição Urbana` , 0) + dplyr::coalesce(`ES Investimento Reposição Rural`, 0)
   )
   # juntar as tabelas de água e esgoto
 
@@ -593,8 +593,8 @@ gera_necessidade_por_municipio <- function(state) {
     "ES Investimento Expansão", "ES Investimento Reposição", "ES Investimento Total",
     "AA Investimento Expansão Urbana", "AA Investimento Reposição Urbana", "AA Investimento Total Urbana",
     "AA Investimento Expansão Rural", "AA Investimento Reposição Rural", "AA Investimento Total Rural",
-    "ES Investimento Expansão Rural", "ES Investimento Reposição Rural", "ES Investimento Total Rural",
-    "ES Investimento Expansão", "ES Investimento Reposição", "ES Investimento Total"
+    "ES Investimento Expansão Urbana", "ES Investimento Reposição Urbana", "ES Investimento Total Urbana",
+    "ES Investimento Expansão Rural", "ES Investimento Reposição Rural", "ES Investimento Total Rural"
   )
   readr::write_csv2(
     tabela,
