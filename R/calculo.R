@@ -575,7 +575,7 @@ gera_necessidade_por_municipio <- function(state) {
   # calcular investimento total
   esgoto <- dplyr::mutate(
     esgoto,
-    "ES Investimento Total" = dplyr::coalesce(`ES Investimento Total  Urbana` , 0) + dplyr::coalesce(`ES Investimento Total Rural`, 0),
+    "ES Investimento Total" = dplyr::coalesce(`ES Investimento Total Urbana` , 0) + dplyr::coalesce(`ES Investimento Total Rural`, 0),
     "ES Investimento Expansão" = dplyr::coalesce(`ES Investimento Expansão Urbana` , 0) + dplyr::coalesce(`ES Investimento Expansão Rural`, 0),
     "ES Investimento Reposição" = dplyr::coalesce(`ES Investimento Reposição Urbana` , 0) + dplyr::coalesce(`ES Investimento Reposição Rural`, 0)
   )
